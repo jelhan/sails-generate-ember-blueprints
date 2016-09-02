@@ -161,9 +161,12 @@ module.exports = {
           _options.limit ||
           DEFAULT_POPULATE_LIMIT;
 
-        return query.populate( association.alias, {
-          limit: populationLimit
-        } );
+        var populateHash = {};
+        if (populationLimit >= 0) {
+          populateHash.limit = populateLimit
+        }
+
+        return query.populate( association.alias, populateHash);
       } else return query;
     }, query );
   },
